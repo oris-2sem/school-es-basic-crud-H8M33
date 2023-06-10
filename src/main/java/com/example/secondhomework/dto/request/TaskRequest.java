@@ -12,8 +12,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TaskRequest {
-    private String taskType;
-    private List<UUID> student_id;
-    private UUID lesson_id;
+public class TeacherRequest {
+    private String username;
+    
+    private String hashPassword;
+    
+    private String firstName;
+    
+    private String secondName;
+    
+    private String patronymic;
 }
