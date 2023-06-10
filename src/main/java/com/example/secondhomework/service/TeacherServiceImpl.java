@@ -20,8 +20,6 @@ public class TeacherServiceImpl implements com.example.secondhomework.service.Te
 
     private final TeacherRepository repository;
 
-    private final SubjectService subjectService;
-
     private final PasswordEncoder encoder;
 
     @Override
@@ -49,7 +47,6 @@ public class TeacherServiceImpl implements com.example.secondhomework.service.Te
                 .role("TEACHER")
                 .hashPassword(encoder.encode(request.getHashPassword()))
                 .username(request.getUsername())
-                .subjects(request.getSubjects_title().stream().map(subjectService::getByTitle).collect(Collectors.toSet()))
                 .build());
     }
 
@@ -63,7 +60,6 @@ public class TeacherServiceImpl implements com.example.secondhomework.service.Te
                                     x.setPatronymic(request.getPatronymic());
                                     x.setHashPassword(encoder.encode(request.getHashPassword()));
                                     x.setUsername(request.getUsername());
-                                    x.setSubjects(request.getSubjects_title().stream().map(subjectService::getByTitle).collect(Collectors.toSet()));
                                     return x;
                                 }
                         )
