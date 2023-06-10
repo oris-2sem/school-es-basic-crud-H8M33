@@ -12,9 +12,9 @@ public interface StudentService {
 
     List<StudentResponse> getAllStudents();
 
-    void createStudent(UUID mainGroupId, StudentRequest request);
+    void createStudent(StudentRequest request);
 
-    void updateStudent(UUID mainGroupId, UUID studentId, StudentRequest request);
+    void updateStudent(UUID studentId, StudentRequest request);
 
     StudentResponse getStudent(UUID studentId);
 
