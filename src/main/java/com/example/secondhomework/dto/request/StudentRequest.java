@@ -22,6 +22,4 @@ public class StudentRequest {
     private String secondName;
 
     private String patronymic;
-
-    private List<UUID> subgroup_id;
 }
