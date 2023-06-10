@@ -23,14 +23,14 @@ public class StudentController {
         return service.getAllStudents();
     }
 
-    @PostMapping("/{mainGroupId}")
-    public void createStudent(@PathVariable UUID mainGroupId, @RequestBody StudentRequest request){
-        service.createStudent(mainGroupId, request);
+    @PostMapping()
+    public void createStudent( @RequestBody StudentRequest request){
+        service.createStudent(request);
     }
 
-    @PutMapping("/{studentId}/{mainGroupId}")
-    public void updateStudent(@PathVariable UUID mainGroupId, @PathVariable UUID studentId, @RequestBody StudentRequest request){
-        service.updateStudent(mainGroupId, studentId, request);
+    @PutMapping("/{studentId}")
+    public void updateStudent( @PathVariable UUID studentId, @RequestBody StudentRequest request){
+        service.updateStudent(studentId, request);
     }
 
     @GetMapping("/{studentId}")
