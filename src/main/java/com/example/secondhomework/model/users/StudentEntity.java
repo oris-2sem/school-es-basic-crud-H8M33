@@ -15,14 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 @SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
 public class StudentEntity extends AbstractUserEntity {
-
-    @ManyToOne
-    MainGroupEntity mainGroup;
-
-    @ManyToMany
-    Set<SubGroupEntity> subGroup;
 
 }
