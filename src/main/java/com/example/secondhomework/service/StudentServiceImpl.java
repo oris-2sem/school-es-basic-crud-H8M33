@@ -1,9 +1,7 @@
 package com.example.secondhomework.service;
 
 import com.example.secondhomework.dto.request.StudentRequest;
-import com.example.secondhomework.dto.response.ParentResponse;
 import com.example.secondhomework.dto.response.StudentResponse;
-import com.example.secondhomework.model.users.ParentEntity;
 import com.example.secondhomework.model.users.StudentEntity;
 import com.example.secondhomework.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +18,6 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository repository;
 
     private final PasswordEncoder encoder;
-
-    private final MainGroupService mainGroupService;
-
-    private final SubGroupService subGroupService;
 
     @Override
     public StudentEntity getById(UUID x) {
@@ -43,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void createStudent(UUID mainGroupId, StudentRequest request) {
+    public void createStudent(StudentRequest request) {
         repository.save(StudentEntity.builder()
                 .firstName(request.getFirstName())
                 .secondName(request.getSecondName())
@@ -51,13 +44,11 @@ public class StudentServiceImpl implements StudentService {
                 .role("STUDENT")
                 .hashPassword(encoder.encode(request.getHashPassword()))
                 .username(request.getUsername())
-                .mainGroup(mainGroupService.getById(mainGroupId))
-                .subGroup(request.getSubgroup_id().stream().map(subGroupService::getById).collect(Collectors.toSet()))
                 .build());
     }
 
     @Override
-    public void updateStudent(UUID mainGroupId, UUID studentId, StudentRequest request) {
+    public void updateStudent(UUID studentId, StudentRequest request) {
         repository.save(
                 repository.findById(studentId)
                         .map( x ->{
@@ -66,8 +57,6 @@ public class StudentServiceImpl implements StudentService {
                                     x.setPatronymic(request.getPatronymic());
                                     x.setHashPassword(encoder.encode(request.getHashPassword()));
                                     x.setUsername(request.getUsername());
-                                    x.setMainGroup(mainGroupService.getById(mainGroupId));
-                                    x.setSubGroup(request.getSubgroup_id().stream().map(subGroupService::getById).collect(Collectors.toSet()));
                                     return x;
                                 }
                         )
